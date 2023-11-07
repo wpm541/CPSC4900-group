@@ -1,0 +1,98 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |
+        =Set(
+        
+            ItemID,
+        
+            Param("ID")
+        
+        );
+        
+         
+        
+        Set(
+        
+            SelectedItem,
+        
+            LookUp(
+        
+                'DocU Main',
+        
+                'Project number' = Value(ItemID)
+        
+            )
+        
+        );
+        
+         
+        
+        Set(
+        
+            lookupTable,
+        
+            Table(
+        
+                {
+        
+                    DisplayName: "Homescreen",
+        
+                    ScreenName: Homepage
+        
+                },
+        
+                {
+        
+                    DisplayName: "Loading Screen",
+        
+                    ScreenName: 'Landing Page'
+        
+                },
+        
+                {
+        
+                    DisplayName: "Documentation Screen",
+        
+                    ScreenName: 'Documentation page'
+        
+                } 
+        
+                
+        
+            )
+        
+        );
+        
+         
+        
+        ClearCollect(colUpdates,{
+        
+            ID: 1,
+        
+            ListID: 1,
+        
+            AcceptanceRequirement: "A",
+        
+            Critical:"A",
+        
+            TestResult: "A",
+        
+            Comments:"A"
+        
+        });
+        
+         
+        
+        Clear(colUpdates);
+        
+        Set(varUserEmail, User().Email);
+    StartScreen: =
+    Theme: =PowerAppsTheme
+
+    Host As hostControl.DefaultHostControlVariant:
+        OnCancel: =false
+        OnEdit: =false
+        OnNew: =false
+        OnSave: =false
+        OnView: =false
+

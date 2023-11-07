@@ -1,0 +1,191 @@
+"'True/false page' As screen":
+
+    Gallery3 As gallery.galleryVertical:
+        BorderThickness: =2
+        DelayItemLoading: =true
+        Items: ='Trial/Error Table'
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =105
+        Width: =1348
+        X: =5
+        Y: =45
+        ZIndex: =1
+
+        "'Possible problem' As text":
+            BorderColor: =Color.DarkGray
+            BorderThickness: =3
+            Color: =Color.Black
+            Default: =ThisItem.Problem
+            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            Fill: =Color.White
+            FocusedBorderThickness: =Self.BorderThickness
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =206
+            X: =36
+            Y: =28
+            ZIndex: =1
+
+        Solution As text:
+            BorderColor: =Color.DarkGray
+            BorderThickness: =3
+            Default: =ThisItem.Solution
+            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            Fill: =Color.White
+            FocusedBorderThickness: =Self.BorderThickness
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =213
+            X: =242
+            Y: =28
+            ZIndex: =2
+
+        Success As text:
+            BorderColor: =Color.DarkGray
+            BorderThickness: =3
+            Color: =Color.Black
+            Default: =ThisItem.Success
+            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =220
+            X: =455
+            Y: =28
+            ZIndex: =3
+
+        Failure As text:
+            BorderColor: =Color.DarkGray
+            BorderThickness: =3
+            Color: =Color.Black
+            Default: =ThisItem.Failure
+            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            Fill: =Color.White
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Width: =205
+            X: =675
+            Y: =28
+            ZIndex: =4
+
+        notes As text:
+            BorderColor: =Color.DarkGray
+            BorderThickness: =3
+            Color: =Color.Black
+            Default: =ThisItem.Notes
+            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            Fill: =Color.White
+            HoverBorderColor: =Self.BorderColor
+            HoverColor: =Self.Color
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            X: =880
+            Y: =28
+            ZIndex: =5
+
+        tog_isChanged As toggleSwitch:
+            Default: |-
+                =ThisItem.Problem<>'Possible problem'.Text
+                Or ThisItem.Solution<>Solution.Text
+                Or ThisItem.Success<>Success.Text
+                Or ThisItem.Failure<>Failure.Text
+                Or ThisItem.Notes<>notes.Text
+            OnSelect: =Select(Parent)
+            X: =1235
+            Y: =40
+            ZIndex: =6
+
+    Label4 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        Fill: =RGBA(136, 160, 209, 1)
+        FontWeight: =FontWeight.Bold
+        Text: ="Problem"
+        X: =5
+        Y: =5
+        ZIndex: =2
+
+    Label4_1 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        Fill: =RGBA(136, 160, 209, 1)
+        FontWeight: =FontWeight.Bold
+        Text: ="Solution"
+        X: =250
+        Y: =5
+        ZIndex: =3
+
+    Label4_2 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        Fill: =RGBA(136, 160, 209, 1)
+        FontWeight: =FontWeight.Bold
+        Text: ="Success"
+        X: =495
+        ZIndex: =4
+
+    Label4_3 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        Fill: =RGBA(136, 160, 209, 1)
+        FontWeight: =FontWeight.Bold
+        Text: ="Failure"
+        X: =714
+        Y: =5
+        ZIndex: =5
+
+    Label4_4 As label:
+        Color: =RGBA(255, 191, 0, 1)
+        Fill: =RGBA(136, 160, 209, 1)
+        FontWeight: =FontWeight.Bold
+        Text: ="Notes"
+        X: =932
+        ZIndex: =6
+
+    Icon3 As icon.Edit:
+        Height: =29
+        Icon: =Icon.Edit
+        OnSelect: =Set(varGalleryMode, "Edit")
+        Tooltip: ="Click to Edit"
+        Visible: =varGalleryMode=Blank()
+        Width: =30
+        X: =1303
+        Y: =10
+        ZIndex: =7
+
+    Icon4 As icon.Save:
+        Height: =27
+        Icon: =Icon.Save
+        Width: =29
+        X: =1256
+        Y: =11
+        ZIndex: =8
+
+    Icon5 As icon.Cancel:
+        Height: =31
+        Icon: =Icon.Cancel
+        Width: =27
+        X: =1206
+        Y: =8
+        ZIndex: =9
+
