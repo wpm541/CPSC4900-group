@@ -39,6 +39,7 @@
             DataCardValue4 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -110,6 +111,7 @@
             DataCardValue7 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -181,6 +183,7 @@
             DataCardValue8 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -252,6 +255,7 @@
             DataCardValue9 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -324,6 +328,7 @@
             DataCardValue10 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -395,6 +400,7 @@
             DataCardValue11 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -538,6 +544,7 @@
             DataCardValue13 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
@@ -609,6 +616,7 @@
             DataCardValue14 As text:
                 BorderColor: =RGBA(255, 255, 255, 1)
                 BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
                 Default: =Parent.Default
                 DelayOutput: =true
                 DisplayMode: =Parent.DisplayMode
