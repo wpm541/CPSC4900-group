@@ -1,191 +1,429 @@
 "'True/false page' As screen":
+    Fill: =RGBA(17, 46, 81, 1)
 
     Gallery3 As gallery.galleryVertical:
+        BorderColor: =RGBA(255, 255, 255, 1)
         BorderThickness: =2
         DelayItemLoading: =true
-        Items: ='Trial/Error Table'
+        Height: =588
+        Items: =If(varGalleryMode="New", colUpdates,'Trial/Error Table')
         Layout: =Layout.Vertical
         LoadingSpinner: =LoadingSpinner.Data
         TemplatePadding: =0
-        TemplateSize: =105
-        Width: =1348
-        X: =5
-        Y: =45
+        TemplateSize: =57
+        Width: =1181
+        X: =88
+        Y: =72
         ZIndex: =1
 
-        "'Possible problem' As text":
-            BorderColor: =Color.DarkGray
+        txt_problem As text:
+            BorderColor: =RGBA(255, 255, 255, 1)
             BorderThickness: =3
-            Color: =Color.Black
+            Color: =RGBA(255, 255, 255, 1)
             Default: =ThisItem.Problem
-            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
-            Fill: =Color.White
+            DisplayMode: =If(varGalleryMode in ["New", "Edit"], DisplayMode.Edit,DisplayMode.View)
+            Fill: =RGBA(65, 93, 128, 1)
             FocusedBorderThickness: =Self.BorderThickness
             HoverBorderColor: =Self.BorderColor
             HoverColor: =Self.Color
+            OnChange: |-
+                =With(
+                    {wLastID: Last(colUpdates).ID},
+                    If(varGalleryMode="New" And ThisItem.ID=wLastID, Collect(colUpdates, {ID: wLastID+1}))
+                );
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
-            Width: =206
-            X: =36
-            Y: =28
+            Reset: =varResetTextInputs
+            Width: =229
+            X: =12
+            Y: =8
             ZIndex: =1
 
-        Solution As text:
-            BorderColor: =Color.DarkGray
+        txt_solution As text:
+            BorderColor: =RGBA(255, 255, 255, 1)
             BorderThickness: =3
+            Color: =RGBA(255, 255, 255, 1)
             Default: =ThisItem.Solution
-            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
-            Fill: =Color.White
+            DisplayMode: =If(varGalleryMode in ["New", "Edit"], DisplayMode.Edit,DisplayMode.View)
+            Fill: =RGBA(65, 93, 128, 1)
             FocusedBorderThickness: =Self.BorderThickness
             HoverBorderColor: =Self.BorderColor
             HoverColor: =Self.Color
+            OnChange: |-
+                =With(
+                    {wLastID: Last(colUpdates).ID},
+                    If(varGalleryMode="New" And ThisItem.ID=wLastID, Collect(colUpdates, {ID: wLastID+1}))
+                );
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
+            Reset: =varResetTextInputs
             Width: =213
             X: =242
-            Y: =28
+            Y: =8
             ZIndex: =2
 
-        Success As text:
-            BorderColor: =Color.DarkGray
+        txt_success As text:
+            BorderColor: =RGBA(255, 255, 255, 1)
             BorderThickness: =3
-            Color: =Color.Black
+            Color: =RGBA(255, 255, 255, 1)
             Default: =ThisItem.Success
-            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
+            DisplayMode: =If(varGalleryMode in ["New", "Edit"], DisplayMode.Edit,DisplayMode.View)
+            Fill: =RGBA(65, 93, 128, 1)
             HoverBorderColor: =Self.BorderColor
             HoverColor: =Self.Color
+            OnChange: |-
+                =With(
+                    {wLastID: Last(colUpdates).ID},
+                    If(varGalleryMode="New" And ThisItem.ID=wLastID, Collect(colUpdates, {ID: wLastID+1}))
+                );
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
+            Reset: =varResetTextInputs
             Width: =220
             X: =455
-            Y: =28
+            Y: =8
             ZIndex: =3
 
-        Failure As text:
-            BorderColor: =Color.DarkGray
+        txt_failure As text:
+            BorderColor: =RGBA(255, 255, 255, 1)
             BorderThickness: =3
-            Color: =Color.Black
+            Color: =RGBA(255, 255, 255, 1)
             Default: =ThisItem.Failure
-            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
-            Fill: =Color.White
+            DisplayMode: =If(varGalleryMode in ["New", "Edit"], DisplayMode.Edit,DisplayMode.View)
+            Fill: =RGBA(65, 93, 128, 1)
             HoverBorderColor: =Self.BorderColor
             HoverColor: =Self.Color
+            OnChange: |-
+                =With(
+                    {wLastID: Last(colUpdates).ID},
+                    If(varGalleryMode="New" And ThisItem.ID=wLastID, Collect(colUpdates, {ID: wLastID+1}))
+                );
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
+            Reset: =varResetTextInputs
             Width: =205
             X: =675
-            Y: =28
+            Y: =8
             ZIndex: =4
 
-        notes As text:
-            BorderColor: =Color.DarkGray
+        txt_notes As text:
+            BorderColor: =RGBA(255, 255, 255, 1)
             BorderThickness: =3
-            Color: =Color.Black
+            Color: =RGBA(255, 255, 255, 1)
             Default: =ThisItem.Notes
-            DisplayMode: =If(varGalleryMode="Edit", DisplayMode.Edit,DisplayMode.View)
-            Fill: =Color.White
+            DisplayMode: =If(varGalleryMode in ["New", "Edit"], DisplayMode.Edit,DisplayMode.View)
+            Fill: =RGBA(65, 93, 128, 1)
             HoverBorderColor: =Self.BorderColor
             HoverColor: =Self.Color
+            OnChange: |-
+                =With(
+                    {wLastID: Last(colUpdates).ID},
+                    If(varGalleryMode="New" And ThisItem.ID=wLastID, Collect(colUpdates, {ID: wLastID+1}))
+                );
             OnSelect: =Select(Parent)
             RadiusBottomLeft: =0
             RadiusBottomRight: =0
             RadiusTopLeft: =0
             RadiusTopRight: =0
+            Reset: =varResetTextInputs
+            Width: =222
             X: =880
-            Y: =28
+            Y: =8
             ZIndex: =5
 
         tog_isChanged As toggleSwitch:
+            Color: =RGBA(255, 255, 255, 1)
             Default: |-
-                =ThisItem.Problem<>'Possible problem'.Text
-                Or ThisItem.Solution<>Solution.Text
-                Or ThisItem.Success<>Success.Text
-                Or ThisItem.Failure<>Failure.Text
-                Or ThisItem.Notes<>notes.Text
+                =ThisItem.Problem<>txt_problem.Text
+                Or ThisItem.Solution<>txt_solution.Text
+                Or ThisItem.Success<>txt_success.Text
+                Or ThisItem.Failure<>txt_failure.Text
+                Or ThisItem.Notes<>txt_notes.Text
             OnSelect: =Select(Parent)
+            Visible: =false
             X: =1235
             Y: =40
             ZIndex: =6
 
+        Icon5 As icon.Trash:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =27
+            Icon: =If(ThisItem in colDeleteRecords, Icon.Cancel, Icon.Trash)
+            OnSelect: |-
+                =If(Self.Icon=Icon.Trash, Collect(colDeleteRecords, ThisItem), Remove(colDeleteRecords, ThisItem));
+                If(CountRows(colDeleteRecords)>0 Or varGalleryMode="Delete", Set(varIsDeleteMode, true), Set(varIsDeleteMode, false));
+            Visible: =varGalleryMode in ["Delete","Edit"] Or (varGalleryMode="New" And ThisItem.ID<Max(colUpdates,ID) And CountRows(colUpdates)>1)
+            Width: =29
+            X: =1128
+            Y: =14
+            ZIndex: =7
+
     Label4 As label:
-        Color: =RGBA(255, 191, 0, 1)
-        Fill: =RGBA(136, 160, 209, 1)
+        Align: =Align.Center
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 191, 0, 1)
         FontWeight: =FontWeight.Bold
         Text: ="Problem"
-        X: =5
-        Y: =5
+        Width: =239
+        X: =88
+        Y: =29
         ZIndex: =2
 
     Label4_1 As label:
-        Color: =RGBA(255, 191, 0, 1)
-        Fill: =RGBA(136, 160, 209, 1)
+        Align: =Align.Center
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 191, 0, 1)
         FontWeight: =FontWeight.Bold
         Text: ="Solution"
-        X: =250
-        Y: =5
+        Width: =216
+        X: =327
+        Y: =29
         ZIndex: =3
 
     Label4_2 As label:
-        Color: =RGBA(255, 191, 0, 1)
-        Fill: =RGBA(136, 160, 209, 1)
+        Align: =Align.Center
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 191, 0, 1)
         FontWeight: =FontWeight.Bold
         Text: ="Success"
-        X: =495
+        Width: =219
+        X: =543
+        Y: =29
         ZIndex: =4
 
     Label4_3 As label:
-        Color: =RGBA(255, 191, 0, 1)
-        Fill: =RGBA(136, 160, 209, 1)
+        Align: =Align.Center
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 191, 0, 1)
         FontWeight: =FontWeight.Bold
         Text: ="Failure"
-        X: =714
-        Y: =5
+        Width: =206
+        X: =762
+        Y: =29
         ZIndex: =5
 
     Label4_4 As label:
-        Color: =RGBA(255, 191, 0, 1)
-        Fill: =RGBA(136, 160, 209, 1)
+        Align: =Align.Center
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(255, 191, 0, 1)
         FontWeight: =FontWeight.Bold
         Text: ="Notes"
-        X: =932
+        Width: =222
+        X: =968
+        Y: =29
         ZIndex: =6
 
-    Icon3 As icon.Edit:
+    Edit As icon.Edit:
+        Color: =RGBA(255, 255, 255, 1)
         Height: =29
         Icon: =Icon.Edit
         OnSelect: =Set(varGalleryMode, "Edit")
         Tooltip: ="Click to Edit"
         Visible: =varGalleryMode=Blank()
         Width: =30
-        X: =1303
-        Y: =10
+        X: =1302
+        Y: =69
         ZIndex: =7
 
-    Icon4 As icon.Save:
+    Save As icon.Save:
+        Color: =RGBA(255, 255, 255, 1)
         Height: =27
         Icon: =Icon.Save
+        OnSelect: |+
+            =// Create a collection to store updated values
+            If(
+                // Do this when new entries are being created
+                varGalleryMode="New",
+            
+                // Load all new entries into the collection colUpdates
+                ForAll(
+                    Gallery3.AllItems As NewRows,
+                    Patch(colUpdates,
+                    LookUp(colUpdates, ID=NewRows.ID), {
+                        Problem: NewRows.txt_problem.Text,
+                        Solution: NewRows.txt_solution.Text,
+                        Success: NewRows.txt_success.Text,
+                        Failure: NewRows.txt_failure.Text,
+                        Notes: NewRows.txt_notes.Text
+                    })
+                );
+            
+                // Clear any ID numbers from colUpdates and delete the last row which holds no info 
+                UpdateIf(colUpdates, true, {ID: Blank()});
+                Remove(colUpdates, Last(colUpdates)),
+            
+                // Do this when entries are being edited
+                varGalleryMode="Edit",
+            
+            // Create a collection to store updated values
+            ForAll(
+                Filter(
+                    Gallery3.AllItems,
+                    tog_isChanged.Value
+                ) As ChangedRows,
+                Patch(colUpdates,
+                Defaults(colUpdates), {
+                    ID: ChangedRows.ID,
+                    Problem: ChangedRows.txt_problem.Text,
+                    Solution: ChangedRows.txt_solution.Text,
+                    Success: ChangedRows.txt_success.Text,
+                    Failure: ChangedRows.txt_failure.Text,
+                    Notes: ChangedRows.txt_notes.Text
+                })
+            )
+            );
+            
+            // Update SharePoint with new values
+            Patch('Trial/Error Table', colUpdates);
+            Clear(colUpdates);
+            
+            // Return gallery to view mode
+            Set(varGalleryMode, Blank());
+            
+            
+        Visible: =varGalleryMode in ["New", "Edit"] And !varIsDeleteMode
         Width: =29
-        X: =1256
-        Y: =11
+        X: =1302
+        Y: =111
         ZIndex: =8
 
-    Icon5 As icon.Cancel:
-        Height: =31
+    Cancel As icon.Cancel:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
         Icon: =Icon.Cancel
-        Width: =27
-        X: =1206
-        Y: =8
+        OnSelect: |-
+            =// Reset text inputs to erase any edits made
+            Set(varResetTextInputs, true); Set(varResetTextInputs, false);
+            
+            // Clear any changes from colUpdates
+            Clear(colUpdates);
+            
+            // Return gallery to view mode
+            Set(varGalleryMode, Blank());
+        Visible: =varGalleryMode in ["New", "Edit"] And !varIsDeleteMode
+        Width: =29
+        X: =1302
+        Y: =154
         ZIndex: =9
+
+    Button3_1 As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Fill: =RGBA(255, 191, 0, 1)
+        Height: =56
+        HoverFill: =RGBA(186, 202, 226, 1)
+        OnSelect: =Navigate('Landing Page')
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Back"
+        Width: =186
+        X: =32
+        Y: =680
+        ZIndex: =10
+
+    Button4_1 As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Fill: =RGBA(255, 191, 0, 1)
+        Height: =56
+        HoverFill: =RGBA(186, 202, 226, 1)
+        OnSelect: |-
+            =Set(update, "Documentation screen");
+            SubmitForm(Form2);
+            Set(SelectedItem,Form2.LastSubmit);
+            Navigate('Landing Page',BorderStyle.None);
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Save"
+        Width: =186
+        X: =1147
+        Y: =680
+        ZIndex: =11
+
+    Add As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
+        Icon: =Icon.Add
+        OnSelect: |-
+            =ClearCollect(colUpdates, {ID:1},{ID:2});
+            Set(varGalleryMode, "New");
+        Width: =29
+        X: =1302
+        Y: =199
+        ZIndex: =12
+
+    ICO_Delete As icon.Trash:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
+        Icon: =Icon.Trash
+        OnSelect: |-
+            =Set(varGalleryMode, "Delete");
+            Set(varIsDeleteMode, true);
+        Width: =29
+        X: =1216
+        Y: =35
+        ZIndex: =13
+
+    Ico_Confirm As icon.Check:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
+        Icon: =Icon.Check
+        OnSelect: |-
+            =// Delete records from datasource or collection depending on mode
+            If(
+                varGalleryMode in ["Delete", "Edit"],
+                Remove('Trial/Error Table', colDeleteRecords),
+                Remove(colUpdates, colDeleteRecords)
+            );
+            
+            Clear(colDeleteRecords);
+            Set(varIsDeleteMode, false);
+            If(varGalleryMode="Delete", Set(varGalleryMode, Blank()));
+        Visible: =varIsDeleteMode
+        Width: =29
+        X: =1302
+        Y: =111
+        ZIndex: =14
+
+    Ico_Cancel As icon.Cancel:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =Clear(colDeleteRecords);
+            Set(varIsDeleteMode, false);
+            If(varGalleryMode="Delete", Set(varGalleryMode, Blank()));
+        Visible: =varIsDeleteMode
+        Width: =29
+        X: =1302
+        Y: =154
+        ZIndex: =15
 
