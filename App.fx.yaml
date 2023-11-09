@@ -69,15 +69,15 @@ App As appinfo:
         
             ID: 1,
         
-            ListID: 1,
+            Problem: "A",
         
-            AcceptanceRequirement: "A",
+            Solution:"A",
         
-            Critical:"A",
+            Success: "A",
         
-            TestResult: "A",
+            Failure:"A",
         
-            Comments:"A"
+            Notes:"A"
         
         });
         
