@@ -1,28 +1,20 @@
 "'calendar page' As screen":
+    Fill: =RGBA(17, 46, 81, 1)
+    OnHidden: |-
+        =Set(
+            ShowPopUp,
+            false
+        );
+    OnVisible: |
+        =Set(varFirstDayOfMonth, 
+            Date(
+                Year(Today()),
+                Month(Today()),
+                1
+            )
+        )
 
-    Button4_2 As button:
-        BorderColor: =RGBA(255, 255, 255, 1)
-        BorderThickness: =3
-        Fill: =RGBA(255, 191, 0, 1)
-        Height: =56
-        HoverFill: =RGBA(186, 202, 226, 1)
-        OnSelect: |-
-            =Set(update, "Documentation screen");
-            SubmitForm(Form2);
-            Set(SelectedItem,Form2.LastSubmit);
-            Navigate('Landing Page',BorderStyle.None);
-        RadiusBottomLeft: =0
-        RadiusBottomRight: =0
-        RadiusTopLeft: =0
-        RadiusTopRight: =0
-        Size: =20
-        Text: ="Save"
-        Width: =186
-        X: =1135
-        Y: =668
-        ZIndex: =1
-
-    Button3_2 As button:
+    Back_Button As button:
         BorderColor: =RGBA(255, 255, 255, 1)
         BorderThickness: =3
         Fill: =RGBA(255, 191, 0, 1)
@@ -36,7 +28,599 @@
         Size: =20
         Text: ="Back"
         Width: =186
+        X: =102
+        Y: =684
+        ZIndex: =3
+
+    btn_Calendar_Today As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        Color: =Color.White
+        Fill: =Color.Transparent
+        HoverColor: =Self.Color
+        HoverFill: =Self.Fill
+        OnSelect: |
+            =Set(varFirstDayOfMonth, 
+                Date(
+                    Year(Today()),
+                    Month(Today()),
+                    1
+                )
+            )
+        PressedColor: =Self.Color
+        PressedFill: =Self.Fill
+        Text: ="Today"
+        X: =469
+        Y: =139
+        ZIndex: =4
+
+    gal_Calendar_Days As gallery.galleryVertical:
+        DelayItemLoading: =true
+        Fill: =Color.White
+        Height: =433
+        Items: |-
+            =ForAll(
+                Sequence(42),
+                {Value: varFirstDayOfMonth + Value - 1 - Weekday(
+                    varFirstDayOfMonth,
+                    StartOfWeek.Sunday
+                ) + 1,
+                NextDay: varFirstDayOfMonth + Value - 1 - Weekday(
+                    varFirstDayOfMonth,
+                    StartOfWeek.Sunday
+                ) + 2}
+            )
+        Layout: =Layout.Vertical
+        LoadingSpinner: =LoadingSpinner.Data
+        TemplatePadding: =0
+        TemplateSize: =Self.Height/6
+        Width: =1266
+        WrapCount: =7
         X: =55
-        Y: =668
-        ZIndex: =2
+        Y: =234
+        ZIndex: =5
+
+        Label12 As label:
+            BorderColor: =RGBA(179, 179, 179, 1)
+            BorderThickness: =0.5
+            Height: =Parent.TemplateHeight
+            HoverFill: |-
+                =ColorValue("#FD625E10")
+            OnSelect: |-
+                =Set(
+                    varFirstDayOfMonth,
+                    Date(
+                        Year(ThisItem.Value),
+                        Month(ThisItem.Value),
+                        1
+                    )
+                );
+            PressedFill: |-
+                =ColorValue("#FD625E30")
+            Text: =
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+        Button5 As button:
+            Color: |-
+                =If(
+                    IsToday(ThisItem.Value), Color.White,
+                    Date(Year(ThisItem.Value),   
+                    Month(ThisItem.Value),1)=varFirstDayOfMonth, Color.Black,
+                    Color.LightGray
+                )
+            Fill: |-
+                =If(IsToday(ThisItem.Value), ColorValue("#FD625E"),Color.Transparent)
+            FontWeight: =FontWeight.Normal
+            Height: =20
+            HoverColor: =Self.Color
+            HoverFill: =Self.Fill
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =90
+            RadiusBottomRight: =90
+            RadiusTopLeft: =90
+            RadiusTopRight: =90
+            Size: =6
+            Text: =Day(ThisItem.Value)
+            Width: =20
+            X: =2
+            Y: =2
+            ZIndex: =2
+
+        gal_Calendar_Events As gallery.galleryVertical:
+            DelayItemLoading: =true
+            Height: =62
+            Items: |-
+                =Filter(
+                    'Calendar Events',
+                    CalendarListID = myID,
+                    StartDateTime < ThisItem.NextDay
+                    And EndDateTime >= ThisItem.Value
+                )
+            Layout: =Layout.Vertical
+            LoadingSpinner: =LoadingSpinner.Data
+            OnSelect: |-
+                =// store the 'clicked on' event in a variable
+                Set(
+                    varCurrentEvent,
+                    ThisItem
+                );
+                // make the pop-up form appear
+                Set(
+                    varShowEventForm,
+                    true
+                );
+            TemplateFill: =Color.Pink
+            TemplatePadding: =1
+            TemplateSize: =Self.Height/3
+            Width: =180.85714285714286
+            Y: =23
+            ZIndex: =3
+
+            Label1 As label:
+                Height: =21
+                OnSelect: =Select(Parent)
+                Size: =8
+                Text: =ThisItem.Title
+                Width: =177
+                Wrap: =false
+                X: =1
+                ZIndex: =1
+
+    DateHeaderLabel As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =66
+        Size: =35
+        Text: =Text(varFirstDayOfMonth,"[$-en-US]mmmm yyyy")
+        Width: =402
+        X: =65
+        Y: =126
+        ZIndex: =6
+
+    gal_Calendar_Weekdays As gallery.galleryHorizontal:
+        DelayItemLoading: =true
+        Fill: |-
+            =ColorValue("#FFBF00")
+        Height: =45
+        Items: =Calendar.WeekdaysShort()
+        LoadingSpinner: =LoadingSpinner.Data
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =Self.Width/7
+        Width: =gal_Calendar_Days.Width
+        X: =gal_Calendar_Days.X
+        Y: =190
+        ZIndex: =7
+
+        Label19 As label:
+            Color: =Color.White
+            Height: =Parent.TemplateHeight
+            OnSelect: =Select(Parent)
+            Text: =ThisItem.Value
+            Width: =Parent.TemplateWidth
+            ZIndex: =1
+
+    MonthRight_Icon As icon.ChevronRight:
+        Color: =Color.White
+        Fill: =Color.Transparent
+        Height: =30
+        HoverColor: =Self.Color
+        Icon: =Icon.ChevronRight
+        OnSelect: |-
+            =Set(varFirstDayOfMonth,
+                Date(
+                    Year(varFirstDayOfMonth),
+                    Month(varFirstDayOfMonth)+1,
+                    1
+                )
+            )
+        PressedColor: =Self.Color
+        Width: =21
+        X: =634
+        Y: =145
+        ZIndex: =8
+
+    PrevMonth_Icon As icon.ChevronLeft:
+        Color: =Color.White
+        Fill: =Color.Transparent
+        Height: =30
+        HoverColor: =Self.Color
+        Icon: =Icon.ChevronLeft
+        OnSelect: |-
+            =Set(varFirstDayOfMonth,
+                Date(
+                    Year(varFirstDayOfMonth),
+                    Month(varFirstDayOfMonth)-1,
+                    1
+                )
+            )
+        PressedColor: =Self.Color
+        Width: =21
+        X: =442
+        Y: =145
+        ZIndex: =9
+
+    lbl_Event_Clickshield As label:
+        Color: =RGBA(0, 0, 0, 0)
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =App.Height
+        Text: =""
+        Visible: =varShowEventForm
+        Width: =App.Width
+        ZIndex: =10
+
+    lbl_Event_Base As label:
+        Color: =RGBA(0, 0, 0, 0)
+        Fill: =Color.White
+        Height: =513
+        Text: =""
+        Visible: =varShowEventForm
+        Width: =650
+        X: =363
+        Y: =127
+        ZIndex: =11
+
+    Label7 As label:
+        Height: =62
+        Size: =30
+        Text: =If(IsBlank(varCurrentEvent),"New Event", "Edit Event")
+        Visible: =varShowEventForm
+        Width: =621
+        X: =373
+        Y: =127
+        ZIndex: =12
+
+    Label8 As label:
+        Text: ="Title"
+        Visible: =varShowEventForm
+        Width: =114
+        X: =389
+        Y: =192
+        ZIndex: =13
+
+    Label9 As label:
+        Text: ="Start Date"
+        Visible: =varShowEventForm
+        Width: =114
+        X: =389
+        Y: =281
+        ZIndex: =14
+
+    Label10 As label:
+        Text: ="End Date"
+        Visible: =varShowEventForm
+        Width: =114
+        X: =389
+        Y: =381
+        ZIndex: =15
+
+    Label11 As label:
+        Text: ="Description"
+        Visible: =varShowEventForm
+        Width: =114
+        X: =389
+        Y: =461
+        ZIndex: =16
+
+    txt_Event_Title As text:
+        Default: =varCurrentEvent.Title
+        Visible: =varShowEventForm
+        X: =503
+        Y: =192
+        ZIndex: =17
+
+    txt_Event_Description As text:
+        Default: =varCurrentEvent.Description
+        Height: =102
+        Mode: =TextMode.MultiLine
+        Visible: =varShowEventForm
+        Width: =449
+        X: =506
+        Y: =451
+        ZIndex: =20
+
+    dte_Event_StartDate As datepicker:
+        DefaultDate: |-
+            =If(
+                IsBlank(varCurrentEvent),
+                // when adding a new event default to today
+                Today(),
+                // when editing an event use its date
+                Date(
+                    Year(varCurrentEvent.StartDateTime),
+                    Month(varCurrentEvent.StartDateTime),
+                    Day(varCurrentEvent.StartDateTime)
+                )
+            )
+        Visible: =varShowEventForm
+        Width: =167
+        X: =506
+        Y: =278
+        ZIndex: =21
+
+    Label13 As label:
+        Text: ="Start Time"
+        Visible: =varShowEventForm
+        Width: =93
+        X: =712
+        Y: =278
+        ZIndex: =22
+
+    drp_Event_StartTime As dropdown:
+        Default: |-
+            =Time(
+                Hour(varCurrentEvent.StartDateTime),
+                Minute(varCurrentEvent.StartDateTime),
+                0
+            )
+        Items: =ForAll(Sequence(96), Time(0,Value*15-15,0))
+        Visible: =varShowEventForm
+        Width: =153
+        X: =823
+        Y: =278
+        ZIndex: =23
+
+    dte_Event_EndDate As datepicker:
+        DefaultDate: |-
+            =If(
+                IsBlank(varCurrentEvent),
+                Today(),
+                Date(
+                    Year(varCurrentEvent.EndDateTime),
+                    Month(varCurrentEvent.EndDateTime),
+                    Day(varCurrentEvent.EndDateTime)
+                )
+            )
+        Visible: =varShowEventForm
+        Width: =167
+        X: =506
+        Y: =378
+        ZIndex: =24
+
+    drp_Event_EndTime As dropdown:
+        Default: |-
+            =Time(
+                Hour(varCurrentEvent.EndDateTime),
+                Minute(varCurrentEvent.EndDateTime),
+                0
+            )
+        Items: =ForAll(Sequence(96), Time(0,Value*15-15,0))
+        Visible: =varShowEventForm
+        Width: =153
+        X: =823
+        Y: =370
+        ZIndex: =25
+
+    Label13_1 As label:
+        Text: ="End Time"
+        Visible: =varShowEventForm
+        Width: =93
+        X: =712
+        Y: =370
+        ZIndex: =26
+
+    Button6 As button:
+        Height: =41
+        OnSelect: |-
+            =// save the record back to SharePoint
+            Patch(
+                'Calendar Events',
+                Table(
+                    {
+                        ID: varCurrentEvent.ID,
+                        CalendarListID: myID,
+                        Title: txt_Event_Title.Text,
+                        StartDateTime: dte_Event_StartDate.SelectedDate
+                            + drp_Event_StartTime.Selected.Value,
+                        EndDateTime: dte_Event_EndDate.SelectedDate
+                            + drp_Event_EndTime.Selected.Value,
+                        Description: txt_Event_Description.Text
+                    }
+                )
+            );
+            
+            // hide the pop-up menu
+            Set(
+                varShowEventForm,
+                false
+            );
+            
+            // reset all fields to default values
+            Reset(txt_Event_Title);
+            Reset(dte_Event_StartDate);
+            Reset(drp_Event_StartTime);
+            Reset(dte_Event_EndDate);
+            Reset(drp_Event_EndTime);
+            Reset(txt_Event_Description);
+        Text: ="Okay"
+        Visible: =varShowEventForm
+        Width: =134
+        X: =856
+        Y: =579
+        ZIndex: =27
+
+    Icon3 As icon.Cancel:
+        Height: =44
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =// hide the pop-up menu
+            Set(varShowEventForm, false);
+            
+            // reset all fields to default values
+            Reset(txt_Event_Title);
+            Reset(dte_Event_StartDate);
+            Reset(drp_Event_StartTime);
+            Reset(dte_Event_EndDate);
+            Reset(drp_Event_EndTime);
+            Reset(txt_Event_Description);
+        Visible: =varShowEventForm
+        Width: =47
+        X: =945
+        Y: =144
+        ZIndex: =28
+
+    Icon4 As icon.Trash:
+        Height: =44
+        Icon: =Icon.Trash
+        OnSelect: |-
+            =// remove the record from SharePoint
+            Remove(
+                'Calendar Events',
+                LookUp(
+                    'Calendar Events',
+                    ID = varCurrentEvent.ID
+                )
+            );
+            
+            // hide the pop-up menu
+            Set(varShowEventForm, false);
+            
+            // reset all fields to default values
+            Reset(txt_Event_Title);
+            Reset(dte_Event_StartDate);
+            Reset(drp_Event_StartTime);
+            Reset(dte_Event_EndDate);
+            Reset(drp_Event_EndTime);
+            Reset(txt_Event_Description);
+        Visible: =varShowEventForm
+        Width: =47
+        X: =378
+        Y: =580
+        ZIndex: =29
+
+    Label14 As label:
+        OnSelect: |-
+            =// remove the record from SharePoint
+            Remove(
+                'Calendar Events',
+                LookUp(
+                    'Calendar Events',
+                    ID = varCurrentEvent.ID
+                )
+            );
+            
+            // hide the pop-up menu
+            Set(varShowEventForm, false);
+            
+            // reset all fields to default values
+            Reset(txt_Event_Title);
+            Reset(dte_Event_StartDate);
+            Reset(drp_Event_StartTime);
+            Reset(dte_Event_EndDate);
+            Reset(drp_Event_EndTime);
+            Reset(txt_Event_Description);
+        Text: ="Delete Event"
+        Visible: =varShowEventForm
+        X: =425
+        Y: =582
+        ZIndex: =30
+
+    Icon6 As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =36
+        Icon: =Icon.Add
+        OnSelect: |-
+            =Set(
+                varCurrentEvent,
+                Blank()
+            );
+            Set(
+                varShowEventForm,
+                true
+            );
+        Width: =36
+        X: =1189
+        Y: =141
+        ZIndex: =31
+
+    Label15 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =48
+        OnSelect: |-
+            =Set(
+                varCurrentEvent,
+                Blank()
+            );
+            Set(
+                varShowEventForm,
+                true
+            );
+        Text: ="Add Event"
+        Width: =96
+        X: =1225
+        Y: =135
+        ZIndex: =32
+
+    Icon2_4 As icon.Help:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Help
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                true
+            );
+        X: =16
+        Y: =688
+        ZIndex: =33
+
+    Label1_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(65, 93, 128, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =82
+        Size: =40
+        Text: ="Calendar"
+        Width: =590
+        X: =394
+        Y: =35
+        ZIndex: =39
+
+    Rectangle1_4 As rectangle:
+        Height: =282
+        Visible: =ShowPopUp
+        Width: =533
+        X: =99
+        Y: =406
+        ZIndex: =40
+
+    Label6_8 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =75
+        Size: =20
+        Text: |-
+            ="Calendar Page:"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =99
+        Y: =415
+        ZIndex: =41
+
+    Label16_4 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(56, 96, 178, 1)
+        Height: =120
+        Text: |-
+            ="Here you can manage group events, view or plan upcoming deadlines, and optimize your project's calendar effortlessly.
+            
+            Shared amongst all group members!"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =99
+        Y: =500
+        ZIndex: =42
+
+    Button8_7 As button:
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                false
+            );
+        Text: ="Close"
+        Visible: =ShowPopUp
+        X: =455
+        Y: =636
+        ZIndex: =43
 

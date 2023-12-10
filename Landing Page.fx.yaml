@@ -1,6 +1,12 @@
 "'Landing Page' As screen":
     Fill: =RGBA(17, 46, 81, 1)
-    OnHidden: =Set(ID, SelectedItem.'Project number');
+    OnHidden: |-
+        =//Set(ID, SelectedItem.'Project number');
+        Set(myID, SelectedItem.ID);
+        Set(
+            ShowPopUp,
+            false
+        );
 
     Button1 As button:
         BorderColor: =RGBA(255, 255, 255, 1)
@@ -34,7 +40,7 @@
         RadiusTopLeft: =0
         RadiusTopRight: =0
         Size: =20
-        Text: ="True/False"
+        Text: ="Notepad"
         Width: =337
         X: =518
         Y: =316
@@ -66,13 +72,6 @@
         Y: =35
         ZIndex: =4
 
-    Icon2 As icon.OptionsList:
-        Color: =RGBA(255, 255, 255, 1)
-        Icon: =Icon.OptionsList
-        X: =1247
-        Y: =40
-        ZIndex: =5
-
     Label1_2 As label:
         Align: =Align.Center
         Color: =RGBA(255, 255, 255, 1)
@@ -86,12 +85,99 @@
         Y: =35
         ZIndex: =8
 
-    Icon6_2 As icon.Information:
+    Label6_1 As label:
+        Height: =75
+        Text: ="Here to help"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =76
+        Y: =402
+        ZIndex: =11
+
+    Icon2_1 As icon.Help:
         Color: =RGBA(255, 255, 255, 1)
-        Height: =56
-        Icon: =Icon.Information
-        Width: =50
-        X: =1306
-        Y: =702
-        ZIndex: =9
+        Icon: =Icon.Help
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                true
+            );
+        X: =16
+        Y: =688
+        ZIndex: =13
+
+    Button8_1 As button:
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                false
+            );
+        Text: ="Close"
+        Visible: =ShowPopUp
+        X: =450
+        Y: =636
+        ZIndex: =14
+
+    Rectangle1_2 As rectangle:
+        Height: =282
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =406
+        ZIndex: =15
+
+    Label6_2 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =75
+        Size: =20
+        Text: ="This is your Landing Page!"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =408
+        ZIndex: =16
+
+    Label16_2 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(56, 96, 178, 1)
+        Height: =136
+        Size: =11
+        Text: |-
+            ="Documentation: Fill out much-relied on information about your project
+            
+            Notepad: Write down what you've tried, what's worked/what's failed, and any notes you made along the way
+            
+            Calendar: Create a (Shared!) Calendar with your team and input any important dates and times that you need to keep track of"
+        Visible: =ShowPopUp
+        Width: =516
+        X: =104
+        Y: =498
+        ZIndex: =17
+
+    Button8_2 As button:
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                false
+            );
+        Text: ="Close"
+        Visible: =ShowPopUp
+        X: =450
+        Y: =636
+        ZIndex: =18
+
+    Label6_5 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =60
+        Size: =12
+        Text: |-
+            ="From here you can choose from:"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =446
+        ZIndex: =19
 

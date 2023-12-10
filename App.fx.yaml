@@ -1,7 +1,9 @@
 App As appinfo:
     BackEnabled: =false
     OnStart: |
-        =Set(
+        =ClearCollect(RecordsCollection, 'DocU Main');
+        
+        Set(
         
             ItemID,
         
@@ -69,6 +71,8 @@ App As appinfo:
         
             ID: 1,
         
+            ListID: 1,
+        
             Problem: "A",
         
             Solution:"A",
@@ -81,7 +85,6 @@ App As appinfo:
         
         });
         
-         
         
         Clear(colUpdates);
         

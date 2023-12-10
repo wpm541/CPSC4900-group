@@ -1,5 +1,10 @@
 "'Documentation page' As screen":
     Fill: =RGBA(17, 46, 81, 1)
+    OnHidden: |-
+        =Set(
+            ShowPopUp,
+            false
+        );
 
     Form2 As form:
         DataSource: ='DocU Main'
@@ -8,6 +13,148 @@
         Width: =1366
         Y: =130
         ZIndex: =1
+
+        author_DataCard1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Authors"
+            Default: =ThisItem.Authors
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'DocU Main'],DataSourceInfo.DisplayName,"Authors")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'DocU Main'], DataSourceInfo.MaxLength, "Authors")
+            Required: =false
+            Update: =DataCardValue3.Text
+            Width: =455
+            X: =1
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey3 As label:
+                AutoHeight: =true
+                Color: =RGBA(255, 255, 255, 1)
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue3 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Color.White, Color.White)
+                BorderThickness: =3
+                Color: =RGBA(255, 255, 255, 1)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(65, 93, 128, 1)
+                HintText: ="Comma separated emails"
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                ZIndex: =2
+
+            ErrorMessage3 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue3.Y + DataCardValue3.Height
+                ZIndex: =3
+
+            StarVisible3 As label:
+                Align: =Align.Center
+                Height: =DataCardKey3.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey3.Y
+                ZIndex: =4
+
+        "'Creator Email_DataCard1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Email"
+            Default: =varUserEmail
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@'DocU Main'],DataSourceInfo.DisplayName,"Email")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =46
+            MaxLength: =DataSourceInfo([@'DocU Main'], DataSourceInfo.MaxLength, "Email")
+            Required: =false
+            Update: =DataCardValue1.Text
+            Visible: =false
+            Width: =455
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            DataCardKey1 As label:
+                AutoHeight: =true
+                Height: =34
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                ZIndex: =2
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue1.Y + DataCardValue1.Height
+                ZIndex: =3
+
+            StarVisible1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey1.Height
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1.Y
+                ZIndex: =4
 
         Title_DataCard2 As typedDataCard.textualEditCard:
             BorderStyle: =BorderStyle.Solid
@@ -81,78 +228,6 @@
                 Y: =DataCardKey4.Y
                 ZIndex: =4
 
-        Authors_DataCard1 As typedDataCard.textualEditCard:
-            BorderStyle: =BorderStyle.Solid
-            DataField: ="Authors"
-            Default: =ThisItem.Authors
-            DisplayMode: =Parent.DisplayMode
-            DisplayName: =DataSourceInfo([@'DocU Main'],DataSourceInfo.DisplayName,"Authors")
-            Fill: =RGBA(0, 0, 0, 0)
-            Height: =140
-            MaxLength: =DataSourceInfo([@'DocU Main'], DataSourceInfo.MaxLength, "Authors")
-            Required: =false
-            Update: =DataCardValue7.Text
-            Width: =455
-            X: =1
-            Y: =0
-            ZIndex: =2
-
-            DataCardKey7 As label:
-                AutoHeight: =true
-                Color: =RGBA(255, 255, 255, 1)
-                Height: =34
-                Text: =Parent.DisplayName
-                Width: =Parent.Width - 60
-                Wrap: =false
-                X: =30
-                Y: =10
-                ZIndex: =1
-
-            DataCardValue7 As text:
-                BorderColor: =RGBA(255, 255, 255, 1)
-                BorderThickness: =3
-                Color: =RGBA(255, 255, 255, 1)
-                Default: =Parent.Default
-                DelayOutput: =true
-                DisplayMode: =Parent.DisplayMode
-                Fill: =RGBA(65, 93, 128, 1)
-                MaxLength: =Parent.MaxLength
-                PaddingLeft: =5
-                RadiusBottomLeft: =0
-                RadiusBottomRight: =0
-                RadiusTopLeft: =0
-                RadiusTopRight: =0
-                Tooltip: =Parent.DisplayName
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardKey7.Y + DataCardKey7.Height + 5
-                ZIndex: =2
-
-            ErrorMessage7 As label:
-                AutoHeight: =true
-                Height: =10
-                Live: =Live.Assertive
-                PaddingBottom: =0
-                PaddingLeft: =0
-                PaddingRight: =0
-                PaddingTop: =0
-                Text: =Parent.Error
-                Visible: =Parent.DisplayMode=DisplayMode.Edit
-                Width: =Parent.Width - 60
-                X: =30
-                Y: =DataCardValue7.Y + DataCardValue7.Height
-                ZIndex: =3
-
-            StarVisible7 As label:
-                Align: =Align.Center
-                Height: =DataCardKey7.Height
-                Text: ="*"
-                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
-                Width: =30
-                Wrap: =false
-                Y: =DataCardKey7.Y
-                ZIndex: =4
-
         Class_DataCard1 As typedDataCard.textualEditCard:
             BorderStyle: =BorderStyle.Solid
             DataField: ="Class"
@@ -177,7 +252,7 @@
                 Width: =Parent.Width - 60
                 Wrap: =false
                 X: =30
-                Y: =10
+                Y: =5
                 ZIndex: =1
 
             DataCardValue8 As text:
@@ -659,24 +734,6 @@
                 Y: =DataCardKey14.Y
                 ZIndex: =4
 
-    Button3 As button:
-        BorderColor: =RGBA(255, 255, 255, 1)
-        BorderThickness: =3
-        Fill: =RGBA(255, 191, 0, 1)
-        Height: =56
-        HoverFill: =RGBA(186, 202, 226, 1)
-        OnSelect: =Navigate('Landing Page')
-        RadiusBottomLeft: =0
-        RadiusBottomRight: =0
-        RadiusTopLeft: =0
-        RadiusTopRight: =0
-        Size: =20
-        Text: ="Back"
-        Width: =186
-        X: =45
-        Y: =668
-        ZIndex: =3
-
     Button4 As button:
         BorderColor: =RGBA(255, 255, 255, 1)
         BorderThickness: =3
@@ -695,8 +752,8 @@
         Size: =20
         Text: ="Save"
         Width: =186
-        X: =1135
-        Y: =668
+        X: =1063
+        Y: =684
         ZIndex: =4
 
     Label1_3 As label:
@@ -706,7 +763,7 @@
         FontWeight: =FontWeight.Semibold
         Height: =82
         Size: =40
-        Text: ="Documentation Page"
+        Text: ="Documentation"
         Width: =590
         X: =394
         Y: =35
@@ -720,19 +777,85 @@
         Y: =35
         ZIndex: =6
 
-    Icon2_1 As icon.OptionsList:
-        Color: =RGBA(255, 255, 255, 1)
-        Icon: =Icon.OptionsList
-        X: =1247
-        Y: =40
-        ZIndex: =7
-
-    Icon6_1 As icon.Information:
-        Color: =RGBA(255, 255, 255, 1)
+    Button3_3 As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Fill: =RGBA(255, 191, 0, 1)
         Height: =56
-        Icon: =Icon.Information
-        Width: =50
-        X: =995
-        Y: =48
-        ZIndex: =8
+        HoverFill: =RGBA(186, 202, 226, 1)
+        OnSelect: |-
+            =If(myID=Blank();,
+                Navigate(Homepage),
+                Navigate('Landing Page'))
+        RadiusBottomLeft: =0
+        RadiusBottomRight: =0
+        RadiusTopLeft: =0
+        RadiusTopRight: =0
+        Size: =20
+        Text: ="Back"
+        Width: =186
+        X: =110
+        Y: =684
+        ZIndex: =16
+
+    Icon2_5 As icon.Help:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.Help
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                true
+            );
+        X: =16
+        Y: =688
+        ZIndex: =17
+
+    Rectangle1_1 As rectangle:
+        Height: =282
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =406
+        ZIndex: =18
+
+    Label6_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =75
+        Size: =20
+        Text: |-
+            ="Documentation Page:"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =415
+        ZIndex: =19
+
+    Label16_1 As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Fill: =RGBA(56, 96, 178, 1)
+        Height: =120
+        Text: |-
+            ="Input any and all information pertaining to your project that you and your team might have to reference,  all in one place!
+            
+            Don't forget to comma separate the project member's Emails in the 'Authors' Field"
+        Visible: =ShowPopUp
+        Width: =533
+        X: =94
+        Y: =500
+        ZIndex: =20
+
+    Button8_5 As button:
+        OnSelect: |-
+            =Set(
+                ShowPopUp,
+                false
+            );
+        Text: ="Close"
+        Visible: =ShowPopUp
+        X: =450
+        Y: =636
+        ZIndex: =21
 
